@@ -1,0 +1,333 @@
+## Difficult Linux Filter and I/O Redirection Exercises (Questions Only)
+
+### Exercise 1: Firewall Investigation
+
+1. Navigate to the `centos` directory.
+cmd = cd centosgrep
+2. Find all occurrences of the word "firewall" in `anaconda-ks.cfg`.
+cmd = "firewall" anaconda-ks.cfg
+3. Perform a case-insensitive search for "firewall".
+cmd = grep -i "firewall" anaconda-ks.cfg
+4. Search for "firewall" in every file within the current directory.
+cmd = grep "firewall" *
+5. Search recursively for "firewall" in all subdirectories.
+cmd = grep -r "firewall" .
+6. Display only the line numbers where "firewall" appears.
+cmd = grep -n "firewall" anaconda-ks.cfg
+7. Count the total number of times "firewall" appears in the file.
+cmd = grep -o "firewall" anaconda-ks.cfg | wc -l
+
+---
+
+### Exercise 2: SELinux Audit
+
+1. Search the entire `/etc` directory for files containing the word `SELINUX`.
+cmd = grep -r "SELINUX" /etc
+2. Display only the names of files containing `SELINUX`.
+cmd = grep -rl "SELINUX" /etc
+3. Display the line numbers where `SELINUX` appears.
+cmd = grep -rn "SELINUX" /etc
+4. Save all findings into a file named `selinux_audit.txt`.
+cmd = grep -r "SELINUX" /etc > selinux_audit.txt
+
+---
+
+### Exercise 3: Reverse Search Challenge
+
+1. Display all lines in `anaconda-ks.cfg` that do not contain the word "firewall".
+cmd = grep -v "firewall" anaconda-ks.cfg
+2. Display all lines that do not contain either "firewall" or "SELINUX".
+cmd = grep -v -e "firewall" -e "SELINUX" anaconda-ks.cfg
+3. Save the filtered output into a new file called `clean_config.txt`.
+cmd = grep -v -e "firewall" -e "SELINUX" anaconda-ks.cfg > clean_config.txt
+
+---
+
+### Exercise 4: File Navigation and Viewing
+
+1. Display the first 25 lines of `anaconda-ks.cfg`.
+cmd = head -n 25 anaconda-ks.cfg
+2. Display the last 25 lines of `anaconda-ks.cfg`.
+cmd = tail -n 25 anaconda-ks.cfg
+3. View the entire file page by page.
+cmd = less anaconda-ks.cfg
+4. Search for the word "network" while viewing the file.
+Inside less, type /network and press Enter
+5. Count the total number of lines in the file.
+cmd = wc -l anaconda-ks.cfg
+
+---
+
+### Exercise 5: Log Monitoring
+
+1. Monitor system logs in real time.
+cmd = tail -f /var/log/secure
+2. Open another terminal and attempt several failed SSH logins.
+cmd = ssh vagrant@10.0.1.15
+3. Identify all login-related log entries.
+cmd = grep "sshd" /var/log/secure
+4. Save all login attempts into a file named `login_activity.log`.
+cmd = grep "sshd" /var/log/secure > login_activity.log
+5. Count the number of failed login attempts.
+cmd = grep -i "failed" login_activity.log | wc -l
+
+---
+
+### Exercise 6: User Information Analysis
+
+1. Display all user accounts from `/etc/passwd`.
+cmd = cat /etc/passwd
+2. Extract only the usernames.
+cmd = cut -d: -f1 /etc/passwd
+3. Extract usernames and their home directories.
+cmd = cut -d: -f1,6 /etc/passwd
+4. Extract usernames and their default shells.
+cmd = cut -d: -f1,7 /etc/passwd
+5. Count the total number of users on the system.
+cmd = wc -l /etc/passwd
+
+---
+
+### Exercise 7: AWK Reporting Challenge
+
+1. Create a report showing only usernames.
+cmd = awk -F: '{print $1}' /etc/passwd
+2. Create a report showing usernames and user IDs.
+cmd = awk -F: '{print $1, $3}' /etc/passwd
+3. Create a report showing usernames, home directories, and login shells.
+cmd = awk -F: '{print $1, $6, $7}' /etc/passwd
+4. Save the report into `user_report.txt`.
+cmd = awk -F: '{print $1, $6, $7}' /etc/passwd > user_report.txt
+---
+
+### Exercise 8: Search and Replace Challenge
+
+1. Create a file named `virus_report.txt`.
+cmd = touch virus_report.txt
+2. Add the word "coronavirus" at least 50 times in different lines.
+cmd =  for i in {1..50}; do echo "Line $i: coronavirus discovered" >> virus_report.txt; done
+3. Replace every occurrence of "coronavirus" with "covid19".
+cmd = sed -i 's/coronavirus/covid19/g' virus_report.txt
+4. Verify that no occurrence of "coronavirus" remains.
+cmd = grep "coronavirus" virus_report.txt
+5. Count the number of replacements performed. 
+cmd grep -o "covid19" virus_report.txt | wc -l
+---
+
+### Exercise 9: Advanced SED Exercise
+
+1. Create a text file containing multiple references to "coronavirus".
+cmd = tocuh corona files, then vim corona and i filled the file with text containing references of 
+"coronavirus"
+2. Replace all occurrences with "firstborntechnologies" without modifying the original file. 
+cmd = :%s/references/firstborntechnologies/g
+3. Modify the original file permanently.
+cmd = :wq
+4. Replace only the first occurrence on each line.
+cmd = :%s/references/firstborntechnologies/
+5. Replace only occurrences found between lines 10 and 20.
+cmd = :10,20s/reference/Firstborntechnologies/g
+
+
+---
+
+### Exercise 10: Recursive Search Challenge
+
+1. Create three directories and multiple files.
+done
+2. Add the word "database" in some files.
+done
+3. Search recursively for the word "database".
+cmd = grep -R database
+4. Display only filenames containing the word.
+cmd = grep -R database --files-with-match
+5. Count how many files contain the word.
+cmd = grep -R database --files-with-match | wc
+
+---
+
+### Exercise 11: Security Investigation
+
+1. Search all files under `/etc` for occurrences of:
+
+   * firewall
+   * ssh
+   * selinux
+
+cmd = grep -R -e 'firewall' -e 'ssh' -e 'selinux' etc/
+
+2. Display matching lines with line numbers.
+cmd = grep -R -e 'firewall' -e 'ssh' -e 'selinux' etc/ | nl
+3. Save the results into `security_report.txt`.
+cmd = grep -R -e 'firewall' -e 'ssh' -e 'selinux' etc/ >> security_report.txt
+
+4. Count the total number of matches for each keyword.
+cmd = grep -R -e 'firewall' -e 'ssh' -e 'selinux' etc/ | wc
+
+---
+
+### Exercise 12: User Account Forensics
+
+1. Determine whether a user named `hacker` exists.
+cmd = getent passwd 
+2. Find the user's UID.
+cmd = getent passwd | awk -F':' '{print $3}'
+3. Find the user's home directory.
+cmd = getent passwd | awk -F':' '{print $6}'
+4. Find the user's login shell.
+cmd = getent passwd | awk -F':' '{print $7}'
+5. Save all findings into `hacker_report.txt`.
+cmd = getent passwd | awk -F':' '{print $7}' >> hacker_report.txt
+
+---
+
+### Exercise 13: Configuration File Audit
+
+1. Find all configuration files containing the word "network".
+cmd = grep -R network /etc/
+2. Display only the matching lines.
+cmd = grep -R network /etc/ | nl
+3. Display only filenames.
+cmd = grep -R network /etc/ --files-with-match
+4. Save the filenames into `network_configs.txt`.
+cmd = grep -R network /etc/ --files-with-match >> network_configs.txt
+5. Count the total number of matching files.
+cmd = grep -R network /etc/ --files-with-match | wc
+---
+
+### Exercise 14: Log Analysis Challenge
+
+1. Extract all lines containing the word "error" from a log file.
+cmd = grep -i error var/log/messages
+2. Ignore case sensitivity.
+cmd = grep -i error var/log/messages --ignore-case
+3. Save the output into `error_report.txt`.
+cmd = grep -i error var/log/messages --ignore-case >> error_report.txt
+4. Display only the first 20 errors.
+cmd = head 20 error_report.txt
+5. Display only the last 20 errors.
+cmd = tail 20 error_report.txt
+
+---
+
+### Exercise 15: Data Extraction Challenge
+
+1. Extract the first column from `/etc/passwd`.
+cmd = awk -F':' '{print $1}'
+2. Extract the third column from `/etc/passwd`.
+cmd = awk -F':' '{print $3}'
+3. Extract the seventh column from `/etc/passwd`.
+cmd = awk -F':' '{print $7}'
+4. Create a report showing:
+
+   * Username
+   * UID
+   * Shell
+
+---
+cmd = awk -F ':' 'BEGIN { print "USER | UID | SHELL" } { print $1, $3, $7}' /etc/passwd
+
+
+### Exercise 16: Expert-Level Challenge
+
+1. Search all files under `/etc` recursively.
+cmd = grep -r '' /etc
+2. Find occurrences of:
+
+   * firewall
+   * selinux
+   * ssh
+   * network
+cmd = grep -r -e "firewall" -e "selinux" -e "shh" -e "network" etc/
+3. Ignore case sensitivity.
+cmd = grep -r -e "firewall" -e "selinux" -e "shh" -e "network" etc/ --ignore-case
+4. Display line numbers.
+cmd = grep -r -e "firewall" -e "selinux" -e "shh" -e "network" etc/ --ignore-case | nl
+5. Save results into `system_audit.txt`.
+cmd = grep -r -e "firewall" -e "selinux" -e "shh" -e "network" etc/ --ignore-case  >> system_audit.txt
+6. Count the total matches for each keyword.
+cmd = grep -r -e "firewall" -e "selinux" -e "shh" -e "network" etc/ --ignore-case -o | wc
+---
+
+### Exercise 17: DevOps Troubleshooting Scenario
+
+A web application is not accessible.
+
+1. Search logs for the word "failed".
+2. Search logs for the word "error".
+3. Search logs for the word "connection".
+4. Save all findings into `troubleshooting_report.txt`.
+cmd for all 4 = grep -r -e 'failed' -e 'error' -e 'connection' >> troubleshooting_report.txt
+5. Display the last 50 entries from the report.
+cmd = tail 50 troubleshooting_report.txt
+---
+
+### Exercise 18: Interview-Level Challenge
+
+Using only:
+
+* grep
+* awk
+* cut
+* sed
+* head
+* tail
+* cat
+
+Create a report that displays:
+
+```text
+USERNAME | UID | HOME DIRECTORY | SHELL
+```
+
+and save it into `employee_report.txt`.
+
+---
+
+cmd = awk -F':' 'BEGIN {print "USERNAME  |  UID  |  HOME DIRECTORY  |  SHELL" } {print $1, "  ", $3, "  ", $6, "  ", $7, "  "}' etc/passwd >> employee_report.txt
+
+### Exercise 19: Very Difficult Challenge
+
+Create a file containing:
+
+* usernames
+* IP addresses
+* timestamps
+* login statuses
+
+Extract:
+
+1. Only usernames.
+cmd = awk -F':' '{print $1}' toomuchinfo.txt
+2. Only IP addresses.
+cmd = awk -F':' '{print $2}' toomuchinfo.txt
+3. Only failed logins.
+cmd = awk -F':' '{print $3}' toomuchinfo.txt
+4. Only successful logins.
+cmd = awk -F':' '{print $4}' toomuchinfo.txt
+5. Generate separate reports for each category.
+cmd = awk -F':' 'BEGIN {print "USERNAME  |  IP  |  FAILED LOGIN  |  SUCCESSFUL LOGIN" } {print $1, "  ", $2, "  ", $3, "  ", $4, "  "}' toomuchinfo.txt >> informed_reports.txt
+
+---
+
+### Exercise 20: Master Challenge
+
+Without using any GUI tools:
+
+1. Monitor logs in real time.
+cmd = tail -f /var/log/messages
+2. Detect failed SSH logins.
+grep -i -e "failed" /var/log/messages | grep ssh
+3. Extract usernames involved.
+tail -f /var/log/messages | grep -i "failed" | grep -i "ssh" | awk '{for(i=1;i<=NF;i++) if($i=="user" || $i=="for") {print $(i+1); break}}'
+
+4. Save findings into `security_incidents.txt`.
+tail -f /var/log/messages | grep -i "failed" | grep -i "password" | awk '{for(i=1;i<=NF;i++) if($i=="user" || $i=="for") {print $(i+1); break}}' >> security_incidents.txt
+
+5. Count total incidents.
+wc -l security_incidents.txt
+6. Display the five most recent incidents.
+tail -n 5 security_incidents.txt
+7. Generate a final audit report for management.
+echo -e "    REPORT   \nDate: $(date)\nTotal: $(wc -l < security_incidents.txt)\n\nTop Users:\n$(sort security_incidents.txt | uniq -c | sort -nr | head -n 5)\n\nLast 5:\n$(tail -n 5 security_incidents.txt)" > audit_report.txt
+
