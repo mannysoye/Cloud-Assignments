@@ -11,7 +11,7 @@ cmd = grep -i "firewall" anaconda-ks.cfg
 4. Search for "firewall" in every file within the current directory.
 cmd = grep -i firewall *
 5. Search recursively for "firewall" in all subdirectories.
-cmd = grep -iR "firewall" .
+cmd = grep -iR "firewall" ./
 6. Display only the line numbers where "firewall" appears.
 cmd = grep -R firewall | nl | cut -f1
 7. Count the total number of times "firewall" appears in the file.
